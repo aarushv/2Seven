@@ -46,20 +46,29 @@ shinyServer(function(input,output){
       layout(title = 'Pay Rate', yaxis = list(title = "Pay Rate in Thousands of Dollars"))
   })
   
+  ##This outputs the bar graph comparison of median pay for the selected major vs median pay for the selected department
   output$department_major <- renderPlot({
+    
+    #This selected the major, median pay for major, and major category
+    #Keep in mind major_select here is to be used for input
     pay2 <- students %>% 
       select(Major,Major_category,Median) %>% 
-      filter(Major == "ECONOMICS")
+      filter(Major == input$major_select)
       
+   #This selects the department and gets the average median pay for that department's majors
    department_pay <- students %>% 
      select(Major,Major_category,Median) %>% 
      filter(Major_category == pay2[[2]]) %>% 
      summarize(Median = mean(Median))
    
+   #This sets the department's data as a data frame to join with the pay of the specific major
    Department_Median <- as.data.frame(c("Major" = pay2[[2]],"Major_category" = pay2[[2]],department_pay))
    
+   #This creates a full data frame of the two pay rates
    pay_comparison <- full_join(pay2,Department_Median)
    
-   plotly()
+   #This plots it
+   plot_ly(data = pay_comparison, x = ~Major, y = ~Median, type = 'bar') %>% 
+     layout(title = 'Median Pay of Major vs Median Pay for Department')
   })
 })
