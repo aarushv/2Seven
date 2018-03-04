@@ -1,6 +1,6 @@
 # College Majors
 
-This folder contains the data and code behind the story [The Economic Guide To Picking A College Major](https://fivethirtyeight.com/features/the-economic-guide-to-picking-a-college-major/).
+This folder contains the data and code behind the story [The Economic Guide To Picking A College Major](r).
 
 All data is from American Community Survey 2010-2012 Public Use Microdata Series.
 
