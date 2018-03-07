@@ -3,12 +3,6 @@ library(dplyr)
 library(data.table)
 library(plotly)
 
-#creates dataframe with just list of majors
-major_list <- students %>% 
-  select(Major)
-
-major_list <- list(major_list[[1]])
-
 recent_grads <- fread("college-majors/recent-grads.csv", stringsAsFactors = F)
 
 
