@@ -30,11 +30,11 @@ compare.server <- shinyServer(function(input, output) {
   ##Renders plot comparing the median pay of selected majors
   output$pay.comp <- renderPlotly({
 
-    pay.majors1 <- filter_(recent_grads, recent_grads$Major==input$Major1) %>%
+    pay.majors1 <- filter(recent_grads, recent_grads$Major==input$Major1) %>%
       select(Major, Median)
-    pay.majors2 <- filter_(recent_grads, recent_grads$Major==input$Major2) %>%
+    pay.majors2 <- filter(recent_grads, recent_grads$Major==input$Major2) %>%
       select(Major, Median)
-    pay.majors3 <- filter_(recent_grads, recent_grads$Major==input$Major3) %>%
+    pay.majors3 <- filter(recent_grads, recent_grads$Major==input$Major3) %>%
       select(Major, Median)
     
     paycomp.selected <- rbind(pay.majors1, pay.majors2, pay.majors3)
