@@ -8,7 +8,7 @@ library(plotly)
 #This is for a faster read in of data
 library(data.table)
 
-students <- data.table::fread("recent-grads.csv", stringsAsFactors = FALSE)
+students <- fread("./college-majors/recent-grads.csv", stringsAsFactors = FALSE)
 
 #creates dataframe with just list of majors
 major_list <- students %>% 
@@ -20,13 +20,12 @@ shinyServer(function(input,output){
   ##This ouputs the first graph: men vs women
   output$men_women <- renderPlotly({
     men_women <- students %>% 
-      
       ###major_select is the input value for which major is being selected
       select(Major,Men,Women,Total) %>% 
       filter(Major == input$major_select)
     
     #This plots the men vs women in a pie chart
-    plot_ly(data = men_women, labels = c("Men", "Women"), values = ~c(Men,Women), type = 'pie') %>% 
+    plot_ly(data = men_women, labels = c("Men", "Women"), values = c(men_women$Men,men_women$Women), type = 'pie') %>% 
       layout(title = 'Gender Ratio in Major')
   })
   ##This outputs the pie chart for employment statistics

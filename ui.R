@@ -1,5 +1,6 @@
 library(shiny)
 library(plotly)
+library(dplyr)
 shinyUI(
   navbarPage( 'Major Stats',
     tabPanel('Major Data',
