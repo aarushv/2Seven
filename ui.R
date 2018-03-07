@@ -23,7 +23,7 @@ shinyUI(
                      "Pay" = "pay",
                      "Employment" = "employed",
                      "Department" = "department",
-                     "All" = "all")
+                     )
                  )
                ),
                mainPanel(
