@@ -1,10 +1,8 @@
-##setwd("~/Desktop/INFO_201_Assignments/2seven")
 library(dplyr)
 library(data.table)
 library(plotly)
 
 recent_grads <- fread("college-majors/recent-grads.csv", stringsAsFactors = F)
-
 
 compare.server <- shinyServer(function(input, output) {
   
@@ -44,11 +42,10 @@ compare.server <- shinyServer(function(input, output) {
   })
   
   output$emp.comp <- renderPlotly({
-    
+  
     emp.majors1 <- filter(recent_grads, recent_grads$Major==input$Major1) %>%
       select(Major, Unemployed, College_jobs, Non_college_jobs, Low_wage_jobs)
-    ##Total1 <- (emp.majors1$Unemployed + emp.majors1$College_jobs + emp.majors1$Non_college_jobs + emp.majors1$Low_wage_jobs)
-    
+
     emp.majors2 <- filter(recent_grads, recent_grads$Major==input$Major2) %>%
       select(Major, Unemployed, College_jobs, Non_college_jobs, Low_wage_jobs)
     
@@ -61,20 +58,7 @@ compare.server <- shinyServer(function(input, output) {
       add_trace(y = ~Low_wage_jobs, name = 'Low Wage Jobs') %>%
       add_trace(y = ~Unemployed, name = 'Unemployed') %>%
       layout(yaxis = list(title = 'Number'), barmode = 'stack')
-    
   })
-  
-  if(input$displayOption == "gender.comp"){
-    plotlyOutput("gender.comp") 
-  } else if(input$displayOption == "emp.comp") {
-    plotlyOutput("emp.comp")
-  } else if (input$displayOption == "pay.comp"){
-    plotlyOutput("pay.comp")
-  } else {
-    plotlyOutput("gender.comp");
-    plotlyOutput("emp.comp");
-    plotlyOutput("pay.comp")
-  }
 })
 
 

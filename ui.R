@@ -15,9 +15,7 @@ ui <- fluidPage(
       sidebarPanel(
         selectInput("Major1", label = "Choose 1st Major to Compare: ", choices = major_list),
         selectInput("Major2", label = "Choose 2nd Major to Compare: ", choices = major_list),
-        selectInput("Major3", label = "Choose 3rd Major to Compare: ", choices = major_list),
-        radioButtons('displayOption', 'Choose Display: ', c("Gender" = "gender.comp", "Pay" = "pay.comp",
-        "Employment" = "emp.comp"))
+        selectInput("Major3", label = "Choose 3rd Major to Compare: ", choices = major_list)
       ),
       mainPanel(
         plotlyOutput("gender.comp"),
