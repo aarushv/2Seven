@@ -10,7 +10,7 @@ recent_grads <- fread("college-majors/recent-grads.csv", stringsAsFactors = F)
 compare.gender <- shinyServer(function(input, output) {
   
   ##Renders the gender distirbution bar chart, $inputmajors.selected is the major chosen by user.
-  output$gender.comp <- renderPlot({
+  output$gender.comp <- renderPlotly({
     for(i in input$majors.selected) {
     gender.majors <- filter_(recent_grads, Major==i) %>%
       select(Men, Women, Major)
@@ -24,7 +24,7 @@ compare.gender <- shinyServer(function(input, output) {
   })
   
   ##Renders plot comparing the median pay of selected majors
-  output$pay.comp <- renderPlot({
+  output$pay.comp <- renderPlotly({
     
     for(i in input$majors.selected) {
     pay.majors <- filter_(recent_grads, Major==i) %>%
@@ -32,7 +32,15 @@ compare.gender <- shinyServer(function(input, output) {
     paycomp.selected <- rbind(pay.majors)
     }
     paycomp.plot <- plot_ly(x = paycomp.selected$Major, name = 'Major', y = paycomp.selected$Median,
-                            name = 'Median Earnings', type = 'bar')
+                            name = 'Median Earnings', type = 'bar', orietation = 'h')
+  })
+  
+  output$emp.comp <- renderPlotly({
+    
+    emp.majors <- filter(recent_grads, Major==input$major.selected) %>%
+      select(Major, Unemployed, College_jobs, Non_college_jobs, Low_wage_jobs)
+    
+    
   })
   
 })
