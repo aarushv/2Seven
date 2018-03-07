@@ -9,6 +9,7 @@ library(plotly)
 library(data.table)
 
 students <- fread("./college-majors/recent-grads.csv", stringsAsFactors = FALSE)
+states <- fread("./salaries-by-region.csv", stringsAsFactors = FALSE)
 
 shinyServer(function(input,output){
   
@@ -68,5 +69,4 @@ shinyServer(function(input,output){
         layout(title = 'Median Pay of Major vs Median Pay for Department')
     }
   })
-  
 })
