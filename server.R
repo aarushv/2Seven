@@ -12,7 +12,7 @@ students <- fread("recent-grads.csv", stringsAsFactors = FALSE)
 
 shinyServer(function(input,output){
   ##This ouputs the first graph: men vs women
-  output$men_women <- renderPlot({
+  output$men_women <- renderPlotly({
     men_women <- students %>% 
       
       ###major_select is the input value for which major is being selected
@@ -24,7 +24,7 @@ shinyServer(function(input,output){
       layout(title = 'Gender Ratio in Major')
   })
   ##This outputs the pie chart for employment statistics
-  output$employed <- renderPlot({
+  output$employed <- renderPlotly({
     
     ###major_select is the input value for which major is selected
     employed <- students %>% 
@@ -35,7 +35,7 @@ shinyServer(function(input,output){
       layout(title = 'Employment vs Unemployment')
   })
   ##This outputs the bar graph for pay 
-  output$pay <- renderPlot({
+  output$pay <- renderPlotly({
     
     ##major_select is the input value for which major is selected
     pay <- students %>% 
@@ -47,7 +47,7 @@ shinyServer(function(input,output){
   })
   
   ##This outputs the bar graph comparison of median pay for the selected major vs median pay for the selected department
-  output$department_major <- renderPlot({
+  output$department_major <- renderPlotly({
     
     #This selected the major, median pay for major, and major category
     #Keep in mind major_select here is to be used for input
