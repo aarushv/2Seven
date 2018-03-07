@@ -1,5 +1,6 @@
 library(shiny)
 library(plotly)
+
 shinyUI(
   navbarPage( 'Major Stats',
     tabPanel('Major Data',
@@ -25,7 +26,7 @@ shinyUI(
                  )
                ),
                mainPanel(
-                 plotlyOuput('men_women')
+                 plotlyOutput('men_women')
                )
              )
     )

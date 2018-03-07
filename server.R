@@ -8,7 +8,7 @@ library(plotly)
 #This is for a faster read in of data
 library(data.table)
 
-students <- fread("recent-grads.csv", stringsAsFactors = FALSE)
+students <- fread("./college-majors/recent-grads.csv", stringsAsFactors = FALSE)
 
 shinyServer(function(input,output){
   ##This ouputs the first graph: men vs women
