@@ -1,5 +1,6 @@
 library(shiny)
 library(plotly)
+library(rsconnect)
 major_list <- read.csv("./college-majors/majors-list.csv")
 major_list <- unique(major_list$Major)
 major_list <- sort(major_list, decreasing = FALSE)
@@ -43,6 +44,8 @@ shinyUI(
                  plotlyOutput("emp.comp")
                )
              )
-    )
+    ), tabPanel("Regional Comparison Data",
+                titlePanel("Compare Regions"),
+                mainPanel(plotlyOutput("states")))
   )
 )

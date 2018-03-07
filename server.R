@@ -11,7 +11,136 @@ library(data.table)
 students <- fread("./college-majors/recent-grads.csv", stringsAsFactors = FALSE)
 states <- fread("./salaries-by-region.csv", stringsAsFactors = FALSE)
 
+colnames(states) <- c("School_Name","Region","Starting_Median_Salary","Mid-Career_Median_Salary","Mid-Career_10th_Percentile_Salary","Mid-Career_25th_Percentile_Salary","Mid-Career_75th_Percentile_Salary","Mid-Career_90th_Percentile_Salary")
+l <- list(color = toRGB("white"), width = 2)
+# specify some map projection/options
+g <- list(
+  scope = 'usa',
+  projection = list(type = 'albers usa'),
+  showlakes = TRUE,
+  lakecolor = toRGB('white')
+)
+
+California <- states %>% 
+  filter(Region == "California") %>% 
+  summarize(Average_Starting_Median_Salary = mean(Starting_Median_Salary))
+
+Western <- states %>% 
+  filter(Region == "Western") %>%
+  summarize(Average_Starting_Median_Salary = mean(Starting_Median_Salary))
+
+Midwestern <- states %>% 
+  filter(Region == "Midwestern") %>% 
+  summarize(Average_Starting_Median_Salary = mean(Starting_Median_Salary))
+
+Southern <- states %>% 
+  filter(Region == "Southern") %>% 
+  summarize(Average_Starting_Median_Salary = mean(Starting_Median_Salary))
+
+Northeastern <- states %>% 
+  filter(Region == "Northeastern") %>% 
+  summarize(Average_Starting_Median_Salary = mean(Starting_Median_Salary))
+
+south <- as.data.frame(c("TX","LA","MS","AR","AL","GA","FL","SC","NC","VA","WV","KY","MO","OK","TN"))
+south$Median_Salary <- c(44521.52,44521.52,44521.52,44521.52,44521.52,44521.52,44521.52,44521.52,44521.52,44521.52,44521.52,44521.52,44521.52,44521.52,44521.52)
+colnames(south) <- c("States","Average_Starting_Median_Salary")
+
+midwest <- as.data.frame(c("MN","WI","IA","IL","IN","OH","MI","ND","SD","NE","KS"))
+midwest$Median_Salary <- c(44225.35,44225.35,44225.35,44225.35,44225.35,44225.35,44225.35,44225.35,44225.35,44225.35,44225.35)
+colnames(midwest) <- c("States","Average_Starting_Median_Salary")
+
+northeastern <- as.data.frame(c("ME","NH","VT","MA","RI","CT","NJ","DE","MD","PA","NY"))
+northeastern$Median_Salary <- c(48496,48496,48496,48496,48496,48496,48496,48496,48496,48496,48496)
+colnames(northeastern) <- c("States","Average_Starting_Median_Salary")
+
+western <- as.data.frame(c("MT","ID","WY","CO","NM","AZ","NV","OR","WA","UT"))
+western$Median_Salary <- c(44414.29,44414.29,44414.29,44414.29,44414.29,44414.29,44414.29,44414.29,44414.29,44414.29)
+colnames(western) <- c("States","Average_Starting_Median_Salary")
+
+california <- as.data.frame(c("CA"))
+california$Median_Salary <- c(51032.14)
+colnames(california) <- c("States","Average_Starting_Median_Salary")
+
+all_states <- rbind(south,midwest,northeastern,western,california)
+
+plot_geo(all_states, locationmode = 'USA-states') %>%
+  add_trace(
+    z = ~Average_Starting_Median_Salary, locations = ~States,
+    color = ~Average_Starting_Median_Salary
+  ) %>%
+  colorbar(title = "Thousands US Dollars") %>%
+  layout(
+    title = 'Average_Starting_Median_Salary',
+    geo = g
+  )
+
 shinyServer(function(input,output){
+  
+  #This will graph a state map
+  output$states <- renderPlotly({
+    colnames(states) <- c("School_Name","Region","Starting_Median_Salary","Mid-Career_Median_Salary","Mid-Career_10th_Percentile_Salary","Mid-Career_25th_Percentile_Salary","Mid-Career_75th_Percentile_Salary","Mid-Career_90th_Percentile_Salary")
+    l <- list(color = toRGB("white"), width = 2)
+    # specify some map projection/options
+    g <- list(
+      scope = 'usa',
+      projection = list(type = 'albers usa'),
+      showlakes = TRUE,
+      lakecolor = toRGB('white')
+    )
+    
+    California <- states %>% 
+      filter(Region == "California") %>% 
+      summarize(Average_Starting_Median_Salary = mean(Starting_Median_Salary))
+    
+    Western <- states %>% 
+      filter(Region == "Western") %>%
+      summarize(Average_Starting_Median_Salary = mean(Starting_Median_Salary))
+    
+    Midwestern <- states %>% 
+      filter(Region == "Midwestern") %>% 
+      summarize(Average_Starting_Median_Salary = mean(Starting_Median_Salary))
+    
+    Southern <- states %>% 
+      filter(Region == "Southern") %>% 
+      summarize(Average_Starting_Median_Salary = mean(Starting_Median_Salary))
+    
+    Northeastern <- states %>% 
+      filter(Region == "Northeastern") %>% 
+      summarize(Average_Starting_Median_Salary = mean(Starting_Median_Salary))
+    
+    south <- as.data.frame(c("TX","LA","MS","AR","AL","GA","FL","SC","NC","VA","WV","KY","MO","OK","TN"))
+    south$Median_Salary <- c(44521.52,44521.52,44521.52,44521.52,44521.52,44521.52,44521.52,44521.52,44521.52,44521.52,44521.52,44521.52,44521.52,44521.52,44521.52)
+    colnames(south) <- c("States","Average_Starting_Median_Salary")
+    
+    midwest <- as.data.frame(c("MN","WI","IA","IL","IN","OH","MI","ND","SD","NE","KS"))
+    midwest$Median_Salary <- c(44225.35,44225.35,44225.35,44225.35,44225.35,44225.35,44225.35,44225.35,44225.35,44225.35,44225.35)
+    colnames(midwest) <- c("States","Average_Starting_Median_Salary")
+    
+    northeastern <- as.data.frame(c("ME","NH","VT","MA","RI","CT","NJ","DE","MD","PA","NY"))
+    northeastern$Median_Salary <- c(48496,48496,48496,48496,48496,48496,48496,48496,48496,48496,48496)
+    colnames(northeastern) <- c("States","Average_Starting_Median_Salary")
+    
+    western <- as.data.frame(c("MT","ID","WY","CO","NM","AZ","NV","OR","WA","UT"))
+    western$Median_Salary <- c(44414.29,44414.29,44414.29,44414.29,44414.29,44414.29,44414.29,44414.29,44414.29,44414.29)
+    colnames(western) <- c("States","Average_Starting_Median_Salary")
+    
+    california <- as.data.frame(c("CA"))
+    california$Median_Salary <- c(51032.14)
+    colnames(california) <- c("States","Average_Starting_Median_Salary")
+    
+    all_states <- rbind(south,midwest,northeastern,western,california)
+    
+    plot_geo(all_states, locationmode = 'USA-states') %>%
+      add_trace(
+        z = ~Average_Starting_Median_Salary, locations = ~States,
+        color = ~Average_Starting_Median_Salary
+      ) %>%
+      colorbar(title = "Thousands US Dollars") %>%
+      layout(
+        title = 'Average Starting Median Salary for College Graduates',
+        geo = g
+      )
+  })
   
   output$graph <- renderPlotly({
     men_women <- students %>% 
