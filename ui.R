@@ -10,7 +10,7 @@ shinyUI(
                
                sidebarPanel(
                  
-                 selectInput('major',
+                 selectInput('major_select',
                              label = "Choose Major: ",
                              choices = c("Computer Science",
                                          "Electrical Engineering",
