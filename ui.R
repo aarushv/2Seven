@@ -23,14 +23,13 @@ shinyUI(
                      "Gender" = "men_women",
                      "Pay" = "pay",
                      "Employment" = "employed",
-                     "Department" = "deparment_major")
+                     "Department" = "depatrment_major")
                  )
                ),
                mainPanel(
-                 plotlyOutput('men_women')
+                 plotlyOutput("decision")
                )
              )
     )
   )
-  
 )

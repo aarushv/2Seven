@@ -80,4 +80,11 @@ shinyServer(function(input,output){
    plot_ly(data = pay_comparison, x = ~Major, y = ~Median, type = 'bar') %>% 
      layout(title = 'Median Pay of Major vs Median Pay for Department')
   })
+  
+  output$decision <- renderPlotly({
+    if (input$displayOption == "all") {
+      return(deparment_major)
+    }
+  })
+  
 })
