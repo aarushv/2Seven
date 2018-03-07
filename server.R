@@ -8,15 +8,19 @@ library(plotly)
 #This is for a faster read in of data
 library(data.table)
 
-students <- data.table::fread("recent-grads.csv", stringsAsFactors = FALSE)
+students <- data.table::fread("./college-majors/recent-grads.csv", stringsAsFactors = FALSE)
 
 #creates dataframe with just list of majors
-major_list <- students %>% 
-  select(Major)
-
-major_list <- list(major_list[[1]])
+major_list <- read.csv("./college-majors/majors-list.csv")
+major_list <- unique(major_list$Major)
+major_list <- sort(major_list, decreasing = FALSE)
 
 shinyServer(function(input,output){
+  
+  output$major_list <- renderUI({
+    selectInput("major", "Choose major: ", major_list)
+  })
+  
   ##This ouputs the first graph: men vs women
   output$men_women <- renderPlotly({
     men_women <- students %>% 

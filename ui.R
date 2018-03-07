@@ -9,13 +9,7 @@ shinyUI(
              sidebarLayout(
                
                sidebarPanel(
-                 
-                 selectInput('major_select',
-                             label = "Choose Major: ",
-                             choices = c("Computer Science",
-                                         "Electrical Engineering",
-                                         "Informatics")
-                 ),
+                 uiOutput("major_list"),
                  radioButtons(
                    'displayOption', 'Choose Display: ',
                    c("All" = "all",
