@@ -19,18 +19,18 @@ shinyUI(
                  selectInput("major_select","",major_list),
                  radioButtons(
                    'displayOption', 'Choose Display: ',
-                   c("All" = "all",
+                   c(
                      "Gender" = "men_women",
                      "Pay" = "pay",
                      "Employment" = "employed",
-                     "Department" = "deparment")
+                     "Department" = "department")
                  )
                ),
+
                mainPanel(
                  plotlyOutput('graph')
                )
              )
     )
   )
-  
 )
