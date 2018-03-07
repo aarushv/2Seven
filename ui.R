@@ -1,19 +1,9 @@
-<<<<<<< HEAD
 library(shiny)
 library(plotly)
-library(dplyr)
-
-#Creates list of majors for inputting
-=======
-
-library(shiny)
-library(plotly)
->>>>>>> a0a47dcdcad635e7abde81f5cf1f2f2f94ea15ee
 major_list <- read.csv("./college-majors/majors-list.csv")
 major_list <- unique(major_list$Major)
 major_list <- sort(major_list, decreasing = FALSE)
 
-<<<<<<< HEAD
 shinyUI(
   navbarPage( 'Major Stats',
     tabPanel('Major Data',
@@ -29,7 +19,7 @@ shinyUI(
                    c("Gender" = "men_women",
                      "Pay" = "pay",
                      "Employment" = "employed",
-                     "Department" = "department",
+                     "Department" = "department"
                      )
                  )
                ),
@@ -37,28 +27,22 @@ shinyUI(
                  plotlyOutput("graph")
                )
              )
+    ),
+    tabPanel("Major Comparison Data",
+             titlePanel("Compare Majors!"),
+             
+             sidebarLayout(
+               sidebarPanel(
+                 selectInput("Major1", label = "Choose 1st Major to Compare: ", choices = major_list),
+                 selectInput("Major2", label = "Choose 2nd Major to Compare: ", choices = major_list),
+                 selectInput("Major3", label = "Choose 3rd Major to Compare: ", choices = major_list)
+               ),
+               mainPanel(
+                 plotlyOutput("gender.comp"),
+                 plotlyOutput("pay.comp"),
+                 plotlyOutput("emp.comp")
+               )
+             )
     )
   )
-=======
-
-ui <- fluidPage(
-  navbarPage("Major Comparison Stats",
-  tabPanel("Major Comparison Data",
-  titlePanel("Compare Majors!"),
-                       
-    sidebarLayout(
-      sidebarPanel(
-        selectInput("Major1", label = "Choose 1st Major to Compare: ", choices = major_list),
-        selectInput("Major2", label = "Choose 2nd Major to Compare: ", choices = major_list),
-        selectInput("Major3", label = "Choose 3rd Major to Compare: ", choices = major_list)
-      ),
-      mainPanel(
-        plotlyOutput("gender.comp"),
-        plotlyOutput("pay.comp"),
-        plotlyOutput("emp.comp")
-      )
-    )
-  )
-  )
->>>>>>> a0a47dcdcad635e7abde81f5cf1f2f2f94ea15ee
 )
